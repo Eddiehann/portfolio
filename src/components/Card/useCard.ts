@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import type { Vector3Tuple } from 'three'
 import { calculateHoverPosition } from './utils'
 
 export function useCard(
-  position: [number, number, number],
+  position: Vector3Tuple,
   isHovered: boolean,
 ) {
   const ref = useRef<THREE.Group>(null)

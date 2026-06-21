@@ -3,7 +3,6 @@ import * as THREE from 'three'
 export const SCENE_ROTATION: [number, number, number] = [0.5, -0.42, 0]
 
 export const STEP_DISTANCE = 1.5
-export const LANE_OFFSET = { X: 5.5, Y: 0, Z: 0 }
 
 const euler = new THREE.Euler(...SCENE_ROTATION)
 

@@ -1,12 +1,12 @@
-import { DIAGONAL_STEP, LANE_OFFSET } from '../../const/global'
+import type { Vector3Tuple } from 'three'
+import { DIAGONAL_STEP } from '../../const/global'
 
 export function getCardPosition(
   index: number,
-  lane: number,
-): [number, number, number] {
+): Vector3Tuple {
   return [
-    index * DIAGONAL_STEP.X + lane * LANE_OFFSET.X,
-    index * DIAGONAL_STEP.Y + lane * LANE_OFFSET.Y,
-    index * DIAGONAL_STEP.Z + lane * LANE_OFFSET.Z,
+    index * DIAGONAL_STEP.X,
+    index * DIAGONAL_STEP.Y,
+    index * DIAGONAL_STEP.Z
   ]
 }

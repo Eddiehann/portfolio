@@ -1,5 +1,7 @@
+import type { Vector3Tuple } from 'three'
+
 export type CardProps = {
-  position: [number, number, number]
+  position: Vector3Tuple
   width: number
   height: number
   renderOrder: number

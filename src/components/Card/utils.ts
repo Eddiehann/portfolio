@@ -1,9 +1,10 @@
+import type { Vector3Tuple } from 'three'
 import { HOVER_LIFT_DIRECTION, TRANSLATE_DISTANCE } from './const'
 
 export function calculateHoverPosition(
-  position: [number, number, number],
+  position: Vector3Tuple,
   isHovered: boolean,
-): [number, number, number] {
+): Vector3Tuple {
   if (!isHovered) return position
   return [
     position[0] + HOVER_LIFT_DIRECTION.x * TRANSLATE_DISTANCE,

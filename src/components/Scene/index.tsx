@@ -9,7 +9,7 @@ import type { SceneProps } from './types'
 
 function Scene({ activeView }: SceneProps) {
   const hook = useScene()
-  const activeLanes = LANES.filter((lane) => lane.view === activeView)
+  const activeLanes = LANES.find((lane) => lane.view === activeView)
 
   return (
     <>
@@ -20,28 +20,25 @@ function Scene({ activeView }: SceneProps) {
 
       {/* <gridHelper args={[40, 40]} rotation={SCENE_ROTATION} />
       <axesHelper args={[16]} /> */}
-
-      {activeLanes.map(({ cards }, lane) => {
-        return (
-          <group key={lane}>
-            {cards.map((card, cardIndex) => {
-              const key = `${lane}-${cardIndex}`
-              return (
-                <Card
-                  key={key}
-                  width={card.width}
-                  height={card.height}
-                  renderOrder={lane * 100 - cardIndex}
-                  position={getCardPosition(cardIndex, lane)}
-                  isHovered={hook.hoveredCard === key}
-                  onHoverStart={() => hook.handleHoverStart(key)}
-                  onHoverEnd={hook.handleHoverEnd}
-                />
-              )
-            })}
-          </group>
-        )
-      })}
+      {activeLanes && (
+        <group key={activeLanes.view}>
+          {activeLanes.cards.map((card, cardIndex) => {
+            const key = `${cardIndex}`
+            return (
+              <Card
+                key={key}
+                width={card.width}
+                height={card.height}
+                renderOrder={-cardIndex}
+                position={getCardPosition(cardIndex)}
+                isHovered={hook.hoveredCard === key}
+                onHoverStart={() => hook.handleHoverStart(key)}
+                onHoverEnd={hook.handleHoverEnd}
+              />
+            )
+          })}
+        </group>
+      )}
     </>
   )
 }
