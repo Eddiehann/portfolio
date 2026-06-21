@@ -2,11 +2,13 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { CardProps } from './types'
-import { CARD_DIMENSIONS, HOVER_LIFT_DIRECTION, TRANSLATE_DISTANCE } from './const'
+import { CARD_DEPTH, HOVER_LIFT_DIRECTION, TRANSLATE_DISTANCE } from './const'
 import { SCENE_ROTATION } from '../../const/global'
 
 function Card({
   position,
+  width,
+  height,
   renderOrder,
   isHovered,
   onHoverStart,
@@ -29,7 +31,6 @@ function Card({
     meshRef.current.position.z += (target[2] - meshRef.current.position.z) * 0.1
   })
 
-
   return (
     <mesh
       ref={meshRef}
@@ -39,7 +40,7 @@ function Card({
       onPointerOver={(e) => { e.stopPropagation(); onHoverStart() }}
       onPointerOut={(e) => { e.stopPropagation(); onHoverEnd() }}
     >
-      <boxGeometry args={CARD_DIMENSIONS} />
+      <boxGeometry args={[width, height, CARD_DEPTH]} />
       <meshStandardMaterial
         color="#dadada"
         roughness={0.4}
