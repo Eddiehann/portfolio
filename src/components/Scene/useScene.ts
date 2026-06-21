@@ -1,18 +1,18 @@
 import { useState } from 'react'
 
-export function useCardHover() {
-  const [hoveredKey, setHoveredKey] = useState<string | null>(null)
+export function useScene() {
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   function handleHoverStart(key: string) {
-    setHoveredKey(key)
+    setHoveredCard(key)
   }
 
   function handleHoverEnd() {
-    setHoveredKey(null)
+    setHoveredCard(null)
   }
 
   return {
-    hoveredKey,
+    hoveredCard,
     handleHoverStart,
     handleHoverEnd
   }

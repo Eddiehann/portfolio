@@ -3,3 +3,5 @@ export type CardData = {
   width: number
   height: number
 }
+
+export type ActiveView = 'home' | 'projects' | 'experience' | 'gallery'

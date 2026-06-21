@@ -5,11 +5,13 @@ import { LANES } from '../../data/cards'
 import { getCardPosition, getLabelPosition } from '../../utils/position'
 import { getLabelOffsetSteps } from '../../utils/labelLayout'
 import { CAMERA_POSITION, CAMERA_ZOOM, LIGHT_POSITION, LIGHT_INTENSITY, AMBIENT_INTENSITY } from './const'
-import { useCardHover } from "../../hooks/useCardHover"
+import { useScene } from "./useScene"
 import { SCENE_ROTATION } from "../../const/global"
+import type { SceneProps } from "./types"
 
-function Scene() {
-  const hook = useCardHover()
+function Scene({ activeView }: SceneProps) {
+  const hook = useScene()
+  const activeLanes = LANES.filter((lane) => lane.view === activeView)
 
   return (
     <>
@@ -18,14 +20,14 @@ function Scene() {
       <directionalLight position={LIGHT_POSITION} intensity={LIGHT_INTENSITY} />
       <color attach="background" args={['#f9f9f9']} />
 
-      <gridHelper args={[40, 40]} rotation={SCENE_ROTATION} />
-      <axesHelper args={[16]} />
+      {/* <gridHelper args={[40, 40]} rotation={SCENE_ROTATION} />
+      <axesHelper args={[16]} /> */}
 
-      {LANES.map(({ cards, label }, lane) => {
-        const labelOffsetSteps = getLabelOffsetSteps(label)
+      {activeLanes.map(({ cards, label }, lane) => {
+        const labelOffsetSteps = 0 // getLabelOffsetSteps(label)
         return (
           <group key={lane}>
-            <Label position={getLabelPosition(lane)} text={label} />
+            {/* <Label position={getLabelPosition(lane)} text={label} /> */}
             {cards.map((card, cardIndex) => {
               const key = `${lane}-${cardIndex}`
               return (
@@ -35,7 +37,7 @@ function Scene() {
                   height={card.height}
                   renderOrder={lane * 100 - cardIndex}
                   position={getCardPosition(cardIndex, lane, labelOffsetSteps)}
-                  isHovered={hook.hoveredKey === key}
+                  isHovered={hook.hoveredCard === key}
                   onHoverStart={() => hook.handleHoverStart(key)}
                   onHoverEnd={hook.handleHoverEnd}
                 />
