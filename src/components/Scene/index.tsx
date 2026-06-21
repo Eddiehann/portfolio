@@ -3,8 +3,11 @@ import Card from '../Card'
 import { cardData } from '../../data/cards'
 import { getCardPosition } from '../../utils/position'
 import { CAMERA_POSITION, CAMERA_ZOOM, LIGHT_POSITION, LIGHT_INTENSITY, AMBIENT_INTENSITY } from './const'
+import { useCardHover } from "../../hooks/useCardHover"
 
 function Scene() {
+  const hook = useCardHover()
+
   return (
     <>
       <OrthographicCamera makeDefault position={CAMERA_POSITION} zoom={CAMERA_ZOOM} />
@@ -17,6 +20,9 @@ function Scene() {
           key={i}
           index={i}
           position={getCardPosition(i)}
+          isHovered={hook.hoveredIndex === i}
+          onHoverStart={() => hook.handleHoverStart(i)}
+          onHoverEnd={hook.handleHoverEnd}
         />
       ))}
     </>
