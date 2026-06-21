@@ -1,18 +1,18 @@
 import { useState } from 'react'
 
 export function useCardHover() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [hoveredKey, setHoveredKey] = useState<string | null>(null)
 
-  function handleHoverStart(index: number) {
-    setHoveredIndex(index)
+  function handleHoverStart(key: string) {
+    setHoveredKey(key)
   }
 
   function handleHoverEnd() {
-    setHoveredIndex(null)
+    setHoveredKey(null)
   }
 
   return {
-    hoveredIndex,
+    hoveredKey,
     handleHoverStart,
     handleHoverEnd
   }

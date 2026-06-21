@@ -1,6 +1,6 @@
 export type CardProps = {
   position: [number, number, number]
-  index: number
+  renderOrder: number
   isHovered: boolean
   onHoverStart: () => void
   onHoverEnd: () => void

@@ -2,14 +2,15 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { CardProps } from './types'
-import { CARD_DIMENSIONS, CARD_ROTATION, HOVER_LIFT_DIRECTION, TRANSLATE_DISTANCE } from './const'
+import { CARD_DIMENSIONS, HOVER_LIFT_DIRECTION, TRANSLATE_DISTANCE } from './const'
+import { SCENE_ROTATION } from '../../const/global'
 
 function Card({
   position,
-  index,
+  renderOrder,
   isHovered,
   onHoverStart,
-  onHoverEnd
+  onHoverEnd,
 }: CardProps) {
   const meshRef = useRef<THREE.Mesh>(null)
 
@@ -33,14 +34,14 @@ function Card({
     <mesh
       ref={meshRef}
       position={position}
-      rotation={CARD_ROTATION}
-      renderOrder={-index}
+      rotation={SCENE_ROTATION}
+      renderOrder={renderOrder}
       onPointerOver={(e) => { e.stopPropagation(); onHoverStart() }}
       onPointerOut={(e) => { e.stopPropagation(); onHoverEnd() }}
     >
       <boxGeometry args={CARD_DIMENSIONS} />
       <meshStandardMaterial
-        color="#ffffff"
+        color="#dadada"
         roughness={0.4}
         metalness={0.1}
         transparent={true}
