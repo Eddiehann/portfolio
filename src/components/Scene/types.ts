@@ -1,5 +1,7 @@
-import type { ActiveView } from "../../data/types"
+import type { ActiveView } from '../../data/types'
+import type { TransitionPhase } from '../../types/transition'
 
 export type SceneProps = {
-  activeView: ActiveView
+  displayedView: ActiveView
+  phase: TransitionPhase
 }

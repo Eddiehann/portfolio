@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { OrthographicCamera } from '@react-three/drei'
 import Card from '../Card'
 import { LANES } from '../../data/cards'
@@ -5,11 +6,14 @@ import { getCardPosition } from './utils'
 import { CAMERA_POSITION, CAMERA_ZOOM, LIGHT_POSITION, LIGHT_INTENSITY, AMBIENT_INTENSITY } from './const'
 import { useScene } from './useScene'
 import type { SceneProps } from './types'
-// import { SCENE_ROTATION } from "../../const/global"
 
-function Scene({ activeView }: SceneProps) {
+function Scene({ displayedView, phase }: SceneProps) {
   const hook = useScene()
-  const activeLanes = LANES.find((lane) => lane.view === activeView)
+
+  useEffect(() => {
+    if (phase !== 'idle') hook.handleHoverEnd()
+  }, [phase])
+  const activeLane = LANES.find((lane) => lane.view === displayedView)
 
   return (
     <>
@@ -18,12 +22,10 @@ function Scene({ activeView }: SceneProps) {
       <directionalLight position={LIGHT_POSITION} intensity={LIGHT_INTENSITY} />
       <color attach="background" args={['#f9f9f9']} />
 
-      {/* <gridHelper args={[40, 40]} rotation={SCENE_ROTATION} />
-      <axesHelper args={[16]} /> */}
-      {activeLanes && (
-        <group key={activeLanes.view}>
-          {activeLanes.cards.map((card, cardIndex) => {
-            const key = `${cardIndex}`
+      {activeLane && (
+        <group key={activeLane.view}>
+          {activeLane.cards.map((card, cardIndex) => {
+            const key = `${displayedView}:${cardIndex}`
             return (
               <Card
                 key={key}
@@ -34,6 +36,8 @@ function Scene({ activeView }: SceneProps) {
                 isHovered={hook.hoveredCard === key}
                 onHoverStart={() => hook.handleHoverStart(key)}
                 onHoverEnd={hook.handleHoverEnd}
+                phase={phase}
+                cardIndex={cardIndex}
               />
             )
           })}

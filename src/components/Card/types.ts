@@ -1,4 +1,5 @@
 import type { Vector3Tuple } from 'three'
+import type { TransitionPhase } from '../../types/transition'
 
 export type CardProps = {
   position: Vector3Tuple
@@ -8,4 +9,6 @@ export type CardProps = {
   isHovered: boolean
   onHoverStart: () => void
   onHoverEnd: () => void
+  phase: TransitionPhase
+  cardIndex: number
 }

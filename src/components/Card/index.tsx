@@ -11,8 +11,10 @@ function Card({
   isHovered,
   onHoverStart,
   onHoverEnd,
+  phase,
+  cardIndex,
 }: CardProps) {
-  const visualRef = useCard(position, isHovered)
+  const { groupRef, materialRef } = useCard(position, isHovered, phase, cardIndex)
 
   return (
     <>
@@ -20,15 +22,15 @@ function Card({
         <mesh
           position={[-width / 2, 0, 0]}
           renderOrder={renderOrder}
-          onPointerOver={(e) => { e.stopPropagation(); onHoverStart() }}
-          onPointerOut={(e) => { e.stopPropagation(); onHoverEnd() }}
+          onPointerOver={phase === 'idle' ? (e) => { e.stopPropagation(); onHoverStart() } : undefined}
+          onPointerOut={phase === 'idle' ? (e) => { e.stopPropagation(); onHoverEnd() } : undefined}
         >
           <boxGeometry args={[width + HITBOX_PADDING.x * 2, height + HITBOX_PADDING.y * 2, CARD_DEPTH]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
       </group>
 
-      <group ref={visualRef} position={position} rotation={SCENE_ROTATION}>
+      <group ref={groupRef} position={position} rotation={SCENE_ROTATION}>
         <mesh
           position={[-width / 2, 0, 0]}
           renderOrder={renderOrder}
@@ -36,6 +38,7 @@ function Card({
         >
           <boxGeometry args={[width, height, CARD_DEPTH]} />
           <meshStandardMaterial
+            ref={materialRef}
             color="#dadada"
             roughness={0.4}
             metalness={0.1}
