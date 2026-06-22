@@ -5,9 +5,9 @@ function createCard(): CardData {
   return { image: "", ...getRandomCardSize() }
 }
 
-export const projectCards: CardData[] = Array.from({ length: 8 }, createCard)
-export const experienceCards: CardData[] = Array.from({ length: 8 }, createCard)
-export const galleryCards: CardData[] = Array.from({ length: 8 }, createCard)
+export const projectCards: CardData[] = Array.from({ length: 12 }, createCard)
+export const experienceCards: CardData[] = Array.from({ length: 12 }, createCard)
+export const galleryCards: CardData[] = Array.from({ length: 12 }, createCard)
 
 export const LANES: { cards: CardData[]; view: ActiveView }[] = [
   { cards: projectCards, view: "projects" },

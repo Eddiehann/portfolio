@@ -21,7 +21,6 @@ function Card({
       <group position={position} rotation={SCENE_ROTATION}>
         <mesh
           position={[-width / 2, 0, 0]}
-          renderOrder={renderOrder}
           onPointerOver={phase === 'idle' ? (e) => { e.stopPropagation(); onHoverStart() } : undefined}
           onPointerOut={phase === 'idle' ? (e) => { e.stopPropagation(); onHoverEnd() } : undefined}
         >
@@ -43,7 +42,7 @@ function Card({
             roughness={0.4}
             metalness={0.1}
             transparent={true}
-            opacity={0.9}
+            opacity={0.7}
           />
         </mesh>
       </group>

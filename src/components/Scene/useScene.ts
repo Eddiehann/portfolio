@@ -1,19 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { LANES } from '../../data/cards'
+import type { ActiveView } from '../../data/types'
+import type { TransitionPhase } from '../../types/transition'
 
-export function useScene() {
+export function useScene(displayedView: ActiveView, phase: TransitionPhase) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
-  function handleHoverStart(key: string) {
-    setHoveredCard(key)
-  }
+  useEffect(() => {
+    if (phase !== 'idle') setHoveredCard(null)
+  }, [phase])
 
-  function handleHoverEnd() {
-    setHoveredCard(null)
-  }
+  const activeLane = LANES.find((lane) => lane.view === displayedView)
+
+  const handleHoverEnd = useCallback(() => setHoveredCard(null), [])
 
   return {
     hoveredCard,
-    handleHoverStart,
-    handleHoverEnd
+    handleHoverStart: (key: string) => setHoveredCard(key),
+    handleHoverEnd,
+    activeLane,
   }
 }

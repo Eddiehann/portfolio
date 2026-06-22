@@ -1,9 +1,8 @@
 import * as THREE from 'three'
 import { SCENE_ROTATION } from '../../const/global'
 
-export const CARD_DIMENSIONS: [number, number, number] = [2, 5, 0.05]
-export const MAX_CARD_SIZE = Math.max(CARD_DIMENSIONS[0], CARD_DIMENSIONS[1])
-export const CARD_DEPTH = CARD_DIMENSIONS[2]
+export const MAX_CARD_SIZE = 5
+export const CARD_DEPTH = 0.05
 
 // Hover
 export const HITBOX_PADDING = { x: 0.4, y: 0.4 }

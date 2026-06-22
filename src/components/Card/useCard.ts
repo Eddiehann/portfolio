@@ -3,11 +3,12 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { Vector3Tuple } from 'three'
 import type { TransitionPhase } from '../../types/transition'
-import { calculateHoverPosition } from './utils'
 import {
   ENTRANCE_STAGGER_MS,
   ENTRANCE_DURATION_MS,
   FALL_DISTANCE,
+  HOVER_DIRECTION,
+  HOVER_TRANSLATE_DISTANCE,
 } from './const'
 
 function easeOut(p: number): number {
@@ -39,10 +40,12 @@ export function useCard(
     }
 
     if (phase === 'idle') {
-      const target = calculateHoverPosition(position, isHovered)
-      groupRef.current.position.x += (target[0] - groupRef.current.position.x) * 0.3
-      groupRef.current.position.y += (target[1] - groupRef.current.position.y) * 0.3
-      groupRef.current.position.z += (target[2] - groupRef.current.position.z) * 0.3
+      const tx = position[0] + (isHovered ? HOVER_DIRECTION.x * HOVER_TRANSLATE_DISTANCE : 0)
+      const ty = position[1] + (isHovered ? HOVER_DIRECTION.y * HOVER_TRANSLATE_DISTANCE : 0)
+      const tz = position[2] + (isHovered ? HOVER_DIRECTION.z * HOVER_TRANSLATE_DISTANCE : 0)
+      groupRef.current.position.x += (tx - groupRef.current.position.x) * 0.15
+      groupRef.current.position.y += (ty - groupRef.current.position.y) * 0.15
+      groupRef.current.position.z += (tz - groupRef.current.position.z) * 0.15
       materialRef.current.opacity = 0.9
       return
     }
